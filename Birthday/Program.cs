@@ -18,7 +18,6 @@ namespace ConsoleApp2
         {
             Menu();
         }
-
         static void Menu()
         {
             BirthdayService birthService = new BirthdayService();
@@ -35,12 +34,11 @@ namespace ConsoleApp2
             } while (menuResult != items.Length - 1);
         }
         static void EditBirth() //редактирование записи БД
-                                //редактирование записи БД
         {
+            BirthdayService birthService = new BirthdayService();
             Console.Write("Что будем редактировать?");
-
             string[] items = { "Редактировать Имя", "Редактировать Дату", "Выход" };
-            method[] methods = new method[] { ReName, ReDate, Exit };
+            method[] methods = new method[] { birthService.ReName, birthService.ReDate, Exit };
             ConsoleMenu menu = new ConsoleMenu(items);
             int menuResult;
             do
@@ -48,42 +46,10 @@ namespace ConsoleApp2
                 menuResult = menu.PrintMenu();
                 methods[menuResult]();
             } while (menuResult != items.Length - 1);
-
-        }
-        static void ReName()
-        {
-            ApplicationContext db = new ApplicationContext();
-            Console.Write("Введите номер для редактирования: ");
-            string? id = Console.ReadLine();
-            User? user = db.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(id));
-            if (user != null)
-            {
-                Console.Write("Введите правильное имя: ");
-                string? CorrectName = Console.ReadLine();
-                user.Name = CorrectName;
-                db.Users.Update(user);
-                db.SaveChanges();
-            }
-        }
-        static void ReDate()
-        {
-            ApplicationContext db = new ApplicationContext();
-            Console.Write("Введите номер для редактирования: ");
-            string? id = Console.ReadLine();
-            User? user = db.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(id));
-            if (user != null)
-            {
-                Console.Write("Введите правильную дату: ");
-                string? CorrectDate = Console.ReadLine();
-                user.Birthday = Convert.ToDateTime(CorrectDate);
-                db.Users.Update(user);
-                db.SaveChanges();
-            }
         }
         static void Exit() //выход
-            {
-                Console.WriteLine("Выходим...");
-            }
-
+        {
+            Console.WriteLine("Выходим...");
         }
+    }
 }

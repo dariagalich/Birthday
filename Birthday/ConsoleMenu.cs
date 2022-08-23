@@ -7,9 +7,7 @@
         public ConsoleMenu(string[] menuItems)
         {
             this.menuItems = menuItems;
-
         }
-
         public int PrintMenu()
         {
             ConsoleKeyInfo key;
@@ -28,7 +26,6 @@
                     }
                     else
                         Console.WriteLine(menuItems[i]);
-
                 }
                 key = Console.ReadKey();
                 if (key.Key == ConsoleKey.UpArrow)
@@ -45,7 +42,5 @@
             while (key.Key != ConsoleKey.Enter);
             return counter;
         }
-            
-
     }
 }

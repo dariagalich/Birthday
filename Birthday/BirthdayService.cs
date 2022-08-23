@@ -1,24 +1,14 @@
 ﻿using ConsoleApp2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Birthday
 {
-
-    
     public class BirthdayService
     {
         private readonly BirthdayRepository _repository;
-
-        
         public BirthdayService()
         {
             _repository = new BirthdayRepository();
         }
-        public void AddNewBirth() //добавление записи в БД
+        public void AddNewBirth()
         {
             Console.Write("Введите ФИО: ");
             string? fio = Console.ReadLine();
@@ -28,16 +18,14 @@ namespace Birthday
             _repository.AddNewBirth(x);
             Console.WriteLine("Объекты успешно сохранены");
         }
-        public void DelBirth() //удаление записи из БД
+        public void DelBirth()
         {
             Console.Write("Введите номер для удаления: ");
             string? id = Console.ReadLine();
-
             _repository.DelBirth(Convert.ToInt32(id));
-
             ShowAllBirthList();
         }
-        public void ShowAllBirthList() //вывод всего списка
+        public void ShowAllBirthList()
         {
             Console.WriteLine("\nПолный список дней рождения:");
             var users = _repository.GetAll();
@@ -46,8 +34,7 @@ namespace Birthday
                 Console.WriteLine($"{u.Id}.{u.Name} - {u.Birthday.ToString("dd/MM/yyyy")}");
             }
         }
-
-        public void UpcomingBirth() //вывод ближайших ДР
+        public void UpcomingBirth()
         {
             var users = _repository.UpcomingBirth();
             if (users != null)
@@ -66,6 +53,16 @@ namespace Birthday
             Console.Write("Введите правильное имя: ");
             string correctName = Console.ReadLine();
             user.Name = correctName;
+            _repository.Update(user);
+        }
+        public void ReDate()
+        {
+            Console.Write("Введите номер для редактирования: ");
+            string? id = Console.ReadLine();
+            var user = _repository.GetById(Convert.ToInt32(id));
+            Console.Write("Введите правильную дату: ");
+            string? correctDate = Console.ReadLine();
+            user.Birthday = Convert.ToDateTime(correctDate);
             _repository.Update(user);
         }
     }
