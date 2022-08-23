@@ -31,6 +31,7 @@ namespace Birthday
         {
             User? user = _db.Users.FirstOrDefault(x => x.Id == id);
 
+
             if (user != null)
             {
                 _db.Users.Remove(user);
@@ -53,15 +54,18 @@ namespace Birthday
         {
              return _db.Users.Where(x => x.Birthday.DayOfYear > DateTime.Now.DayOfYear && x.Birthday.DayOfYear < DateTime.Now.DayOfYear + 15).ToList();
         }
-        public void ReName(int id)
+        public void Update (User user)
         {
-            User? user = _db.Users.FirstOrDefault(x => x.Id == id);
             if (user != null)
             {
+
                 _db.Users.Update(user);
                 _db.SaveChanges();
             }
         }
-
+        public User GetById(int id)
+        {
+            return _db.Users.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

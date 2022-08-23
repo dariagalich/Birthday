@@ -35,6 +35,7 @@ namespace ConsoleApp2
             } while (menuResult != items.Length - 1);
         }
         static void EditBirth() //редактирование записи БД
+                                //редактирование записи БД
         {
             Console.Write("Что будем редактировать?");
 
